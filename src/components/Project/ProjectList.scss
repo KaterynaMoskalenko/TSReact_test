@@ -1,0 +1,22 @@
+.wrapperBtn {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    width: 80px;
+    height: 45px;
+    margin: 3px;
+    align-self: baseline;
+}
+
+li {
+    display: flex;
+    margin: 10px 0;
+    padding: 5px 0;
+
+    div {
+        flex: 1;
+        align-self: center;
+    }
+}

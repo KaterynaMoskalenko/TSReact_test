@@ -1,0 +1,23 @@
+@use '../styles/variablec' as *;
+
+
+header {
+    margin: 0 auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    width: 80vw;
+    justify-content: space-between;
+
+    a {
+        font-weight: 900;
+        color: #646cff;
+        text-decoration: inherit;
+        font-size: 24px;
+        text-transform: uppercase;
+    }
+   
+}

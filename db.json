@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": "d1f4",
+      "name": "123",
+      "shortDescription": "qq",
+      "detailedDescription": "qqqqqqqqqqqqqqqqqq",
+      "startDate": "2025-06-26",
+      "endDate": "2025-07-06",
+      "budget": 25,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    },
+    {
+      "id": "c12f",
+      "name": "катя2",
+      "shortDescription": "task flow for user",
+      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
+      "startDate": "2025-06-28",
+      "endDate": "2025-07-04",
+      "budget": 45,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    },
+    {
+      "id": "48b7",
+      "name": "катя3",
+      "shortDescription": "task flow for user333",
+      "detailedDescription": "3edfvbnm",
+      "startDate": "2025-06-27",
+      "endDate": "2025-08-08",
+      "budget": 52,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    }
+  ]
+}

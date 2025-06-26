@@ -1,0 +1,44 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d build",
+
+    "dev": "concurrently \"vite\" \"npm run server\"",
+    "server": "json-server --watch db.json --port 3001",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "watch": "tsc --w"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.10.0",
+    "formik": "^2.4.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.6.2",
+    "sass": "^1.89.2",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.0.0",
+    "json-server": "^1.0.0-beta.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

@@ -1,0 +1,26 @@
+form section {
+    display: flex;
+    
+}
+
+.btnFormCreate {
+    height: 60px;
+    width: 185px;
+    margin: 0 auto;
+    background-color: #007bff;
+    color: aliceblue;
+}
+
+.sectionForm-create {
+    flex-direction: column;
+    max-height: 95vh;
+    flex-wrap: wrap;
+    width: 70vw;
+    text-align: center;
+
+}
+
+.wrapAdditionalForm {
+    display: flex;
+    flex-wrap: wrap;
+}
