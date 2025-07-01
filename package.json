@@ -2,13 +2,14 @@
   "name": "app",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://KaterynaMoskalenko.github.io/TSReact_test",
   "type": "module",
   "scripts": {
-      "predeploy": "npm run build",
-      "deploy": "gh-pages -d build",
-
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "concurrently \"vite\" \"npm run server\"",
     "server": "json-server --watch db.json --port 3001",
+    "start": "json-server --watch db.json --port 10000",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

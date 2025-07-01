@@ -6,7 +6,7 @@ export interface Task {
 }
 
 export interface Project {
-    id: string;
+    id: string | number;
     name: string;
     shortDescription: string;
     startDate: string;
