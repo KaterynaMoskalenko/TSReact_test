@@ -36,8 +36,8 @@ export const fetchProjects = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
         //const response = await axios.get(`http://localhost:3001/projects`);
-        const response = await axios.get("https://mock-api-legt.onrender.com/projects")
-       // const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
+        //const response = await axios.get("https://mock-api-legt.onrender.com/projects")
+       const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
 
         console.log(response);
         return response.data;
