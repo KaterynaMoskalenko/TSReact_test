@@ -9,7 +9,8 @@
     "deploy": "gh-pages -d dist",
     "dev": "concurrently \"vite\" \"npm run server\"",
     "server": "json-server --watch db.json --port 3001",
-    "start": "npx json-server --watch db.json --port 10000",
+
+    "start": "npx json-server --watch db.json --port $PORT --host 0.0.0.0",
     "build": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
