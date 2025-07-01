@@ -1,18 +1,6 @@
 {
   "projects": [
     {
-      "id": "8162",
-      "name": "катя347",
-      "shortDescription": "task flow for user 1234578",
-      "detailedDescription": "qqqqqqqqqqqqqqqqqq",
-      "startDate": "2025-07-02",
-      "endDate": "2025-08-10",
-      "budget": 250,
-      "risks": "",
-      "communicationPlan": "",
-      "evaluationCriteria": ""
-    },
-    {
       "id": "ef2e",
       "name": "Kateryna Moskalenko159",
       "shortDescription": "single task",
@@ -32,6 +20,30 @@
       "startDate": "2025-07-02",
       "endDate": "2025-07-30",
       "budget": 750,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    },
+    {
+      "id": "9ed9",
+      "name": "катя_2",
+      "shortDescription": "single task_2",
+      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
+      "startDate": "2025-07-02",
+      "endDate": "2025-07-04",
+      "budget": 152,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    },
+    {
+      "id": "cb32",
+      "name": "катя3_2",
+      "shortDescription": "qq",
+      "detailedDescription": "qqqqqqqqqqqqqqqqqq",
+      "startDate": "2025-07-01",
+      "endDate": "2025-07-16",
+      "budget": 147,
       "risks": "",
       "communicationPlan": "",
       "evaluationCriteria": ""
