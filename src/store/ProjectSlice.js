@@ -36,7 +36,7 @@ export const fetchProjects = createAsyncThunk(
     try {
         //const response = await axios.get(`http://localhost:3001/projects`);
         //const response = await axios.get("https://mock-api-legt.onrender.com/projects")
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
 
         console.log(response);
         return response.data;
@@ -53,7 +53,9 @@ export const addProject = createAsyncThunk(
   'projects/addProject',
   async (newProject, thunkAPI) => {
     try  {
-      const response = await axios.post(`http://localhost:3001/projects`, newProject);
+      //const response = await axios.post(`http://localhost:3001/projects`, newProject);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/projects`, newProject);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -78,7 +80,7 @@ export const deleteProject = createAsyncThunk(
   'projects/deleteProject',
   async (id, thunkAPI) => {
       try {
-         await axios.delete(`http://localhost:3001/projects/${id}`);
+         await axios.delete(`${import.meta.env.VITE_API_URL}/projects/${id}`);
         
           return id;
     } catch (error) {
