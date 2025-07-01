@@ -9,7 +9,7 @@
     "deploy": "gh-pages -d dist",
     "dev": "concurrently \"vite\" \"npm run server\"",
     "server": "json-server --watch db.json --port 3001",
-    "start": "json-server --watch db.json --port 10000",
+    "start": "npx json-server --watch db.json --port 10000",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -42,5 +42,9 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "engines": {
+  "node": ">=18",
+  "npm": ">=8"
   }
 }
