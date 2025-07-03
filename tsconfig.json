@@ -134,7 +134,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     //"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
    },
-  "include": ["src", "axiosConfig.ts"],
+  "include": ["src", "axiosConfig.ts", "env.d.ts"],
   "exclude": ["node_modules", "dist"]
 
 }

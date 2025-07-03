@@ -19,3 +19,16 @@ export interface Project {
     tasks?: Task[];
     leads?: Lead[];
 }
+
+
+
+// extension of Task interface
+// for using in Используй  taskSlice, компонентах TaskPage, фильтрах и формах
+  export interface FullTask extends Task {
+  status: 'новая' | 'в процессе' | 'завершена';
+  deadline?: string;
+  assignedTo?: string;
+  description?: string;
+  priority?: 'низкий' | 'средний' | 'высокий'
+}
+

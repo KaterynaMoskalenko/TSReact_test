@@ -73,10 +73,20 @@
       "evaluationCriteria": "",
       "tasks": [
         {
+          "id": "ziskahd6sge",
           "title": "task_1 23"
+        },
+        {
+          "id": "6d27lmb9yno",
+          "title": "task_2 AntityAdapter "
         }
       ],
-      "leads": []
+      "leads": [
+        {
+          "id": "ewleartibw",
+          "value": "Rfate"
+        }
+      ]
     },
     {
       "id": "19a9",

@@ -33,7 +33,7 @@ console.log('isAuth:', isAuth);
          {isAuth && (
           <>
             <Route path="/manager" element={<ProjectsPages />} />
-            <Route path="/departments" element={<TasksPage />} />
+            <Route path="/tasks" element={<TasksPage />} />
             <Route path="/create-project" element={<ProjectForm />} />
             <Route path="/projects-list" element={<ProjectList />} />
             <Route path='/projects/:id' element={<ProjectDetailUpdate />} />
