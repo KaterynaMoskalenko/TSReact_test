@@ -25,6 +25,17 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, thunkAP
   }
 });
 
+export const updateTask = createAsyncThunk(
+  'tasks/updateTask',
+  async (task: FullTask, thunkAPI) => {
+    try {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, task);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось обновить задачу');
+    }
+  }
+);
 
 const taskSlice = createSlice({
   name: "tasks",
@@ -48,8 +59,12 @@ const taskSlice = createSlice({
             .addCase("tasks/fetchTasks/rejected", (state, action: any) => {
                 state.loading = false;
                 state.error = action.error?.message || "Failed to load tasks";
-            });
+            })
+            .addCase(updateTask.fulfilled, (state, action) => {
+                tasksAdapter.upsertOne(state, action.payload);
+});
+
     }
 });
 
-export default taskSlice;
+export default taskSlice.reducer;

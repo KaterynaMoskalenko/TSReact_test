@@ -25,7 +25,7 @@ export interface Project {
 // extension of Task interface
 // for using in Используй  taskSlice, компонентах TaskPage, фильтрах и формах
   export interface FullTask extends Task {
-  status: 'новая' | 'в процессе' | 'завершена';
+  status?: 'новая' | 'в процессе' | 'завершена';
   deadline?: string;
   assignedTo?: string;
   description?: string;

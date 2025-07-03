@@ -1,38 +1,6 @@
 {
   "projects": [
     {
-      "id": "272f",
-      "name": "123Do this",
-      "shortDescription": "qq",
-      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
-      "startDate": "2025-07-02",
-      "endDate": "2025-07-30",
-      "budget": 750,
-      "risks": "",
-      "communicationPlan": "",
-      "evaluationCriteria": "",
-      "tasks": [
-        {
-          "id": "21145bmtmxi",
-          "title": "task_1 "
-        },
-        {
-          "id": "jlutm6xgijg",
-          "title": "task_2"
-        },
-        {
-          "id": "z9rcn4cfl3j",
-          "title": ""
-        }
-      ],
-      "leads": [
-        {
-          "id": "jqi96bo965p",
-          "value": "Lead_Bob"
-        }
-      ]
-    },
-    {
       "id": "cb32",
       "name": "катя3_2",
       "shortDescription": "qq",
@@ -79,12 +47,20 @@
         {
           "id": "6d27lmb9yno",
           "title": "task_2 AntityAdapter "
+        },
+        {
+          "id": "s754nhd3nwg",
+          "title": "task_ Completed Project"
         }
       ],
       "leads": [
         {
           "id": "ewleartibw",
           "value": "Rfate"
+        },
+        {
+          "id": "neivl6rmip",
+          "value": "Емма"
         }
       ]
     },
