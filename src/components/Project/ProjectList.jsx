@@ -7,7 +7,7 @@ import { useNavigate, useNavigation } from "react-router";
 
  export default function ProjectList() {
   const projects = useSelector((state) => state.projects.projects);
-  console.log(projects)
+  //console.log(projects)
 
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -31,7 +31,8 @@ import { useNavigate, useNavigation } from "react-router";
                               <p><em>Date of starting:</em> {project.startDate} | <em>Finaly date:</em> {project.endDate}</p>
                           </div>
                           <div className="wrapperBtn">
-                              <button onClick={() => toggleTasks(project.id)}> Update
+                              <button //onClick={() => toggleTasks(project.id)}
+                              > Update
                               {/* {expandedProjectId === project.id ? 'Hide tasks' : 'Show tasks'} */}
                               </button>
                               <button onClick={() => {

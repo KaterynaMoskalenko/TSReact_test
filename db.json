@@ -1,18 +1,6 @@
 {
   "projects": [
     {
-      "id": "ef2e",
-      "name": "Kateryna Moskalenko159",
-      "shortDescription": "single task",
-      "detailedDescription": "mock server in Render",
-      "startDate": "2025-07-01",
-      "endDate": "2025-07-31",
-      "budget": 250,
-      "risks": "",
-      "communicationPlan": "",
-      "evaluationCriteria": ""
-    },
-    {
       "id": "272f",
       "name": "123Do this",
       "shortDescription": "qq",
@@ -22,19 +10,16 @@
       "budget": 750,
       "risks": "",
       "communicationPlan": "",
-      "evaluationCriteria": ""
-    },
-    {
-      "id": "9ed9",
-      "name": "катя_2",
-      "shortDescription": "single task_2",
-      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
-      "startDate": "2025-07-02",
-      "endDate": "2025-07-04",
-      "budget": 152,
-      "risks": "",
-      "communicationPlan": "",
-      "evaluationCriteria": ""
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "title": "task_1 "
+        },
+        {
+          "title": "task_2"
+        }
+      ],
+      "leads": []
     },
     {
       "id": "cb32",
@@ -42,8 +27,44 @@
       "shortDescription": "qq",
       "detailedDescription": "qqqqqqqqqqqqqqqqqq",
       "startDate": "2025-07-01",
-      "endDate": "2025-07-16",
+      "endDate": "2025-07-17",
       "budget": 147,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "title": "task_1 23"
+        }
+      ],
+      "leads": []
+    },
+    {
+      "id": "4cd9",
+      "name": "катя2_21",
+      "shortDescription": "single task_2_215",
+      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
+      "startDate": "2025-07-02",
+      "endDate": "2025-07-23",
+      "budget": 250258,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "title": "task_1 23"
+        }
+      ],
+      "leads": []
+    },
+    {
+      "id": "19a9",
+      "name": "serg om",
+      "shortDescription": "zoom",
+      "detailedDescription": "fgkgl;,fvml'bmm :m nfg",
+      "startDate": "2025-07-03",
+      "endDate": "2025-07-31",
+      "budget": 7500.31,
       "risks": "",
       "communicationPlan": "",
       "evaluationCriteria": ""

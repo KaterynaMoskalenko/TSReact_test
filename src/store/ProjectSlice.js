@@ -1,6 +1,7 @@
 // projectsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+//import type { Project } from '@/models/Project';
 
 // Фейковые данные для демонстрации
 let fakeProjectsData = [
@@ -39,7 +40,7 @@ export const fetchProjects = createAsyncThunk(
         //const response = await axios.get("https://mock-api-legt.onrender.com/projects")
        const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
 
-        console.log(response);
+        //console.log(response);
         return response.data;
     } catch (error) {
       //send error in reducer
@@ -64,17 +65,46 @@ export const addProject = createAsyncThunk(
   }
 );
 
-// Обновление проекта
-// export const updateProject = createAsyncThunk(
-//   'projects/updateProject',
-//   async (updatedProject) => {
-//     await new Promise((resolve) => setTimeout(resolve, 500));
-//     fakeProjectsData = fakeProjectsData.map((p) =>
-//       p.id === updatedProject.id ? { ...p, ...updatedProject } : p
-//     );
-//     return updatedProject;
-//   }
-// );
+
+// Обновление проекта с помощью дженерик <> наеписан 
+// createAsyncThunk<Project, Project, ...>
+// Первый Project — это то, что функция вернёт (обновлённый проект).
+// Второй Project —  примет на вход ( данные, которые  обнов).
+/**
+ * @typedef {import('@/models/Project').Project} Project
+ */
+
+/**
+ * @type {import('@reduxjs/toolkit').AsyncThunk<Project, Project, { rejectValue: string }>}
+ */
+/**
+ * @typedef {import('@/models/Project').Project} Project
+ */
+
+/**
+ * @type {import('@reduxjs/toolkit').AsyncThunk<Project, Project, { rejectValue: string }>}
+ */
+
+export const updateProject = createAsyncThunk(
+//<
+//Project,                 //thun возвращает 
+//Project                  //thunk принимает     
+
+  'projects/updateProject',
+  async (updatedProject, thunkAPI) => {
+    try {
+      // PUT обновл сущность,  не созд новую
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/projects/${updatedProject.id}`,
+        updatedProject
+      );
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message || 'Ошибка при обновлении проекта');
+    }
+  }
+);
 
 // Удаление проекта
 export const deleteProject = createAsyncThunk(
@@ -130,11 +160,11 @@ const projectsSlice = createSlice({
         state.error = action.payload;
       })
       //======================//
-      // .addCase(updateProject.fulfilled, (state, action) => {
-      //   state.projects = state.projects.map((p) =>
-      //     p.id === action.payload.id ? { ...p, ...action.payload } : p
-      //   );
-      // })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.projects = state.projects.map((p) =>
+          p.id === action.payload.id ? { ...p, ...action.payload } : p
+        );
+      })
        .addCase(deleteProject.pending, (state) => {
         state.loading = true;
         state.error = null;

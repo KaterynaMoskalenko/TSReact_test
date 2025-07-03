@@ -8,6 +8,8 @@ interface Props {
 }
 
 export default function ProjectEditForm({ project, onSubmit }: Props) {
+  //  компонент ничего не делает с данными: он просто собирает их и вызывает onSubmit.
+
   return (
     <Formik
   initialValues={{
@@ -19,7 +21,8 @@ export default function ProjectEditForm({ project, onSubmit }: Props) {
 >
       {({ values }) => (
         <Form>
-          <Field name="name" placeholder="Project Name" />
+          <Field name="name" placeholder="Project Name" /> 
+          {/* - Field — это как input, но управляется Formik. */}
           <Field name="shortDescription" as="textarea" placeholder="Short Description" />
           <Field name="detailedDescription" as="textarea" placeholder="Detailed Description" />
           <Field name="startDate" type="date" />
@@ -34,12 +37,13 @@ export default function ProjectEditForm({ project, onSubmit }: Props) {
             {({ push, remove }) => (
               <div>
                 {values.tasks.map((task, index) => (
-                  <div key={task.id}>
+                  <div //key={task.id}
+                  >
                     <Field name={`tasks.${index}.title`} placeholder={`Task ${index + 1}`} />
                     <button type="button" onClick={() => remove(index)}>❌</button>
                   </div>
                 ))}
-                <button type="button" onClick={() => push({ id: Date.now(), title: '' })}>
+                <button type="button" onClick={() => push({ title: '' })}>
                   ➕ Add Task
                 </button>
               </div>
@@ -68,3 +72,31 @@ export default function ProjectEditForm({ project, onSubmit }: Props) {
     </Formik>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
