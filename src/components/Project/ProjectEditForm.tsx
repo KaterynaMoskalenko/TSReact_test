@@ -1,6 +1,23 @@
 import { Formik, Form, Field, FieldArray } from 'formik';
 import type { Project } from '@/models/Project';
+import type { Task } from '@/models/Project';
+import type { Lead } from '@/models/Project';
+import { useMemo } from 'react';
+// хук React, который запоминает результат вычислений между рендерами, 
+// если не изменились зависимости.
+//  При каждом рендере компонента ProjectEditForm мы создаём объект initialValues.
+// Без useMemo он будет пересоздаваться каждый раз, даже если project не изменился.
+//  А это может привести к неожиданным эффектам (например, Formik сбросит состояние формы) или просто к лишним вычислениям.
+//  Функция внутри useMemo один раз обрабатывает входной project:
+//  Преобразует tasks и leads в массивы объектов с id и содержимым (title и value)
+//  Если task или lead не имели id, мы создаём новый через generateId()
+//  [project] — это массив зависимостей. Если project не изменится, React не будет пересоздавать initialValues.
+// Formik отслеживает initialValues, и если они изменились — сбрасывает форму.
+//  useMemo предотвращает нежелательные сбросы, потому что объект остаётся прежним между рендерами, пока project не поменяется.
 
+
+
+const generateId = () => Math.random().toString(36).substring(2, 15);
 
 interface Props {
   project: Project;
@@ -10,15 +27,23 @@ interface Props {
 export default function ProjectEditForm({ project, onSubmit }: Props) {
   //  компонент ничего не делает с данными: он просто собирает их и вызывает onSubmit.
 
-  return (
-    <Formik
-  initialValues={{
+    const initialValues= useMemo(() => ({
     ...project,
-    tasks: project.tasks ?? [],
-    leads: project.leads ?? [],
-  }}
-  onSubmit={onSubmit}
->
+    tasks: (project.tasks ?? []).map((task) =>
+//  оператор нулевого слияния (??) даёт безопасную замену- пустой массив []
+      typeof task === 'string'
+        ? { id: generateId(), title: task }
+        : { id: task.id ?? generateId(), title: task.title }
+    ),
+    leads: (project.leads ?? []).map((lead) =>
+      typeof lead === 'string'
+        ? { id: generateId(), value: lead }
+        : { id: lead.id ?? generateId(), value: lead.value }
+    ),
+  }), [project]);
+
+  return (
+    <Formik initialValues={initialValues} onSubmit={onSubmit} >
       {({ values }) => (
         <Form>
           <Field name="name" placeholder="Project Name" /> 
@@ -37,13 +62,13 @@ export default function ProjectEditForm({ project, onSubmit }: Props) {
             {({ push, remove }) => (
               <div>
                 {values.tasks.map((task, index) => (
-                  <div //key={task.id}
-                  >
+                  <div key={task.id}                  >
                     <Field name={`tasks.${index}.title`} placeholder={`Task ${index + 1}`} />
+                    <Field name={`tasks.${index}.id`} type="hidden" />
                     <button type="button" onClick={() => remove(index)}>❌</button>
                   </div>
                 ))}
-                <button type="button" onClick={() => push({ title: '' })}>
+                <button type="button" onClick={() => push({id:generateId(), title: '' })}>
                   ➕ Add Task
                 </button>
               </div>
@@ -51,19 +76,22 @@ export default function ProjectEditForm({ project, onSubmit }: Props) {
           </FieldArray>
 
           <h4>Leads</h4>
-          {/* <FieldArray name="leads">
-            {({ push, remove }) => (
+          <FieldArray name="leads">
+            {/* FieldArray позволяет работать с массивом полей, управляет массивом значений в форме, values.leads будет массив.
+ This is Component*/}
+           {({ push, remove }) => (
               <div>
                 {values.leads.map((lead, index) => (
-                  <div key={index}>
-                    <Field name={`leads.${index}`} placeholder={`Lead ${index + 1}`} />
+                  <div key={lead.id}>
+                    <Field name={`leads.${index}.value`} placeholder={`Lead ${index + 1}`} />
+                    <Field name={`leads.${index}.id`} type="hidden" />
                     <button type="button" onClick={() => remove(index)}>❌</button>
                   </div>
                 ))}
-                <button type="button" onClick={() => push('')}>➕ Add Lead</button>
+                <button type="button" onClick={() => push({id: generateId(), value:''})}>➕ Add Lead</button>
               </div>
             )}
-          </FieldArray> */}
+          </FieldArray>
 
           <br />
           <button type="submit">💾 Save</button>

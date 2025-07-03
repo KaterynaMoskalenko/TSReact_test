@@ -13,13 +13,24 @@
       "evaluationCriteria": "",
       "tasks": [
         {
+          "id": "21145bmtmxi",
           "title": "task_1 "
         },
         {
+          "id": "jlutm6xgijg",
           "title": "task_2"
+        },
+        {
+          "id": "z9rcn4cfl3j",
+          "title": ""
         }
       ],
-      "leads": []
+      "leads": [
+        {
+          "id": "jqi96bo965p",
+          "value": "Lead_Bob"
+        }
+      ]
     },
     {
       "id": "cb32",
@@ -34,10 +45,20 @@
       "evaluationCriteria": "",
       "tasks": [
         {
+          "id": "mv8kqabtzpg",
           "title": "task_1 23"
+        },
+        {
+          "id": "0wxgb9lb11ck",
+          "title": "task_2_Do_sth"
         }
       ],
-      "leads": []
+      "leads": [
+        {
+          "id": "0pgvcqwr2hea",
+          "value": "Lead_Bobina"
+        }
+      ]
     },
     {
       "id": "4cd9",
@@ -65,9 +86,20 @@
       "startDate": "2025-07-03",
       "endDate": "2025-07-31",
       "budget": 7500.31,
-      "risks": "",
-      "communicationPlan": "",
-      "evaluationCriteria": ""
+      "risks": "успеть ",
+      "communicationPlan": "с президентом",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "title": "разрешить проблему"
+        },
+        {
+          "title": "ускорить процесс"
+        }
+      ],
+      "leads": [
+        "Главн по тарелочкам"
+      ]
     }
   ]
 }

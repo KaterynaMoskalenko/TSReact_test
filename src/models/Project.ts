@@ -5,6 +5,11 @@ export interface Task {
     title: string;
 }
 
+export interface Lead {
+  id: string | number;
+  value: string; // может быть email, имя, или другая информация
+}
+
 export interface Project {
     id: string | number;
     name: string;
@@ -12,5 +17,5 @@ export interface Project {
     startDate: string;
     endDate: string;
     tasks?: Task[];
-    leads?: string[];
+    leads?: Lead[];
 }
