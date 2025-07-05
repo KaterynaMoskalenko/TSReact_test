@@ -1,21 +1,22 @@
-import { Formik, Form, Field, FieldArray } from 'formik';
-import type { Project } from '@/models/Project';
-import type { Task } from '@/models/Project';
-import type { Lead } from '@/models/Project';
+
+import {
+  Form as AntForm,
+  Input,
+  Button,
+  Typography,
+  Divider,
+  Space,
+  Card,
+  Row,
+  Col
+} from 'antd';
+import { Formik, FieldArray, Form} from 'formik';
 import { useMemo } from 'react';
-// хук React, который запоминает результат вычислений между рендерами, 
-// если не изменились зависимости.
-//  При каждом рендере компонента ProjectEditForm мы создаём объект initialValues.
-// Без useMemo он будет пересоздаваться каждый раз, даже если project не изменился.
-//  А это может привести к неожиданным эффектам (например, Formik сбросит состояние формы) или просто к лишним вычислениям.
-//  Функция внутри useMemo один раз обрабатывает входной project:
-//  Преобразует tasks и leads в массивы объектов с id и содержимым (title и value)
-//  Если task или lead не имели id, мы создаём новый через generateId()
-//  [project] — это массив зависимостей. Если project не изменится, React не будет пересоздавать initialValues.
-// Formik отслеживает initialValues, и если они изменились — сбрасывает форму.
-//  useMemo предотвращает нежелательные сбросы, потому что объект остаётся прежним между рендерами, пока project не поменяется.
+import type { Project } from '@/models/Project';
+import './ProjectEditForm.scss'; // Import your styles
 
-
+const { TextArea } = Input;
+const { Title, Text } = Typography;
 
 const generateId = () => Math.random().toString(36).substring(2, 15);
 
@@ -25,94 +26,191 @@ interface Props {
 }
 
 export default function ProjectEditForm({ project, onSubmit }: Props) {
-  //  компонент ничего не делает с данными: он просто собирает их и вызывает onSubmit.
-
-    const initialValues= useMemo(() => ({
+  const initialValues = useMemo(() => ({
     ...project,
-    tasks: (project.tasks ?? []).map((task) =>
-//  оператор нулевого слияния (??) даёт безопасную замену- пустой массив []
-      typeof task === 'string'
-        ? { id: generateId(), title: task }
-        : { id: task.id ?? generateId(), title: task.title }
-    ),
-    leads: (project.leads ?? []).map((lead) =>
-      typeof lead === 'string'
-        ? { id: generateId(), value: lead }
-        : { id: lead.id ?? generateId(), value: lead.value }
-    ),
+    tasks: (project.tasks ?? []).map((task) => ({
+      id: typeof task === 'string' ? generateId() : task.id ?? generateId(),
+      title: typeof task === 'string' ? task : task.title,
+      assignedTo: task.assignedTo ?? ''
+    })),
+    leads: (project.leads ?? []).map((lead) => ({
+      id: typeof lead === 'string' ? generateId() : lead.id ?? generateId(),
+      value: typeof lead === 'string' ? lead : lead.value
+    })),
+
   }), [project]);
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} >
-      {({ values }) => (
-        <Form>
-          <Field name="name" placeholder="Project Name" /> 
-          {/* - Field — это как input, но управляется Formik. */}
-          <Field name="shortDescription" as="textarea" placeholder="Short Description" />
-          <Field name="detailedDescription" as="textarea" placeholder="Detailed Description" />
-          <Field name="startDate" type="date" />
-          <Field name="endDate" type="date" />
-          <Field name="budget" placeholder="Budget" />
-          <Field name="risks" as="textarea" placeholder="Risks" />
-          <Field name="communicationPlan" as="textarea" placeholder="Communication Plan" />
-          <Field name="evaluationCriteria" as="textarea" placeholder="Evaluation Criteria" />
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      {({ values, handleChange, setFieldValue }) => (
+          <Form className="project-edit-form">
 
-          <h4>Tasks</h4>
+    
+          <Card title="Edit Project">
+            <Title level={4}>General Info</Title>
+
+            <AntForm.Item label="Project Name">
+              <Input name="name" value={values.name} onChange={handleChange} />
+            </AntForm.Item>
+
+            <AntForm.Item label="Short Description">
+              <Input name="shortDescription" value={values.shortDescription} onChange={handleChange} />
+            </AntForm.Item>
+
+            <AntForm.Item label="Detailed Description">
+              <TextArea
+                name="detailedDescription"
+                value={values.detailedDescription}
+                onChange={handleChange}
+                rows={3}
+              />
+            </AntForm.Item>
+
+            <Divider orientation="left">Dates</Divider>
+            <Row gutter={16}>
+              <Col span={12}>
+                <AntForm.Item label="Start Date">
+                  <Input
+                    type="date"
+                    name="startDate"
+                    value={values.startDate}
+                    onChange={handleChange}
+                  />
+                </AntForm.Item>
+              </Col>
+              <Col span={12}>
+                <AntForm.Item label="End Date">
+                  <Input
+                    type="date"
+                    name="endDate"
+                    value={values.endDate}
+                    onChange={handleChange}
+                  />
+                </AntForm.Item>
+              </Col>
+            </Row>
+
+            <AntForm.Item label="Budget">
+              <Input
+                type="number"
+                name="budget"
+                value={values.budget}
+                onChange={handleChange}
+                // placeholder="Budget"
+              />
+            </AntForm.Item>
+
+            <AntForm.Item label="Risks">
+              <TextArea
+                name="risks"
+                value={values.risks}
+                onChange={handleChange}
+                rows={3}
+                placeholder="List potential risks"
+              />
+            </AntForm.Item>
+
+            <AntForm.Item label="Communication Plan">
+              <TextArea
+                name="communicationPlan"
+                value={values.communicationPlan}
+                onChange={handleChange}
+                rows={3}
+                placeholder="Describe communication plan"
+              />
+            </AntForm.Item>
+
+            <AntForm.Item label="Evaluation Criteria">
+              <TextArea
+                name="evaluationCriteria"
+                value={values.evaluationCriteria}
+                onChange={handleChange}
+                rows={3}
+                placeholder="Define success metrics"
+              />
+            </AntForm.Item>
+          </Card>
+
+          <Divider orientation="left">Tasks</Divider>
           <FieldArray name="tasks">
             {({ push, remove }) => (
-              <div>
+              <Space direction="vertical" style={{ width: '100%' }}>
                 {values.tasks.map((task, index) => (
-                  <div key={task.id}                  >
-                    <Field name={`tasks.${index}.title`} placeholder={`Task ${index + 1}`} />
-                    <Field name={`tasks.${index}.id`} type="hidden" />
-                    <button type="button" onClick={() => remove(index)}>❌</button>
-                  </div>
+                  <Card key={task.id} size="small">
+                    <AntForm.Item label={`Task ${index + 1}`}>
+                      <Input
+                        name={`tasks.${index}.title`}
+                        value={task.title}
+                        onChange={handleChange}
+                        placeholder="Task title"
+                      />
+                    </AntForm.Item>
+
+                    <AntForm.Item label="Assigned To">
+                      <Input
+                        name={`tasks.${index}.assignedTo`}
+                        value={task.assignedTo}
+                        onChange={handleChange}
+                        placeholder="Responsible person's name"
+                      />
+                    </AntForm.Item>
+
+                    <Button type="text" danger onClick={() => remove(index)}>
+                      ❌ Remove Task
+                    </Button>
+                  </Card>
                 ))}
-                <button type="button" onClick={() => push({id:generateId(), title: '' })}>
+                <Button type="dashed" onClick={() =>
+                  push({ id: generateId(), title: '', assignedTo: '' })
+                }>
                   ➕ Add Task
-                </button>
-              </div>
+                </Button>
+              </Space>
             )}
           </FieldArray>
 
-          <h4>Leads</h4>
+          <Divider orientation="left">Leads</Divider>
           <FieldArray name="leads">
-            {/* FieldArray позволяет работать с массивом полей, управляет массивом значений в форме, values.leads будет массив.
- This is Component*/}
-           {({ push, remove }) => (
-              <div>
+            {({ push, remove }) => (
+              <Space direction="vertical" style={{ width: '100%' }}>
                 {values.leads.map((lead, index) => (
-                  <div key={lead.id}>
-                    <Field name={`leads.${index}.value`} placeholder={`Lead ${index + 1}`} />
-                    <Field name={`leads.${index}.id`} type="hidden" />
-                    <button type="button" onClick={() => remove(index)}>❌</button>
-                  </div>
+                  <Card key={lead.id} size="small">
+                    <AntForm.Item label={`Lead ${index + 1}`}>
+                      <Input
+                        name={`leads.${index}.value`}
+                        value={lead.value}
+                        onChange={handleChange}
+                      />
+                    </AntForm.Item>
+                    <Button type="text" danger onClick={() => remove(index)}>
+                      ❌ Remove Lead
+                    </Button>
+                  </Card>
                 ))}
-                <button type="button" onClick={() => push({id: generateId(), value:''})}>➕ Add Lead</button>
-              </div>
+                {values.leads.length < 2 && (
+                  <Button type="dashed" onClick={() =>
+                    push({ id: generateId(), value: '' })
+                  }>
+                    ➕ Add Lead
+                  </Button>
+                )}
+                {values.leads.length >= 2 && (
+                  <Text type="danger">❗ Максимум 2 лидa на проект</Text>
+                )}
+              </Space>
             )}
           </FieldArray>
 
-          <br />
-          <button type="submit">💾 Save</button>
+          <Divider />
+          <Button type="primary" htmlType="submit">
+            💾 Save Project
+          </Button>
+  
         </Form>
       )}
     </Formik>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

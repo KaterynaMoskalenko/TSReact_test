@@ -1,5 +1,5 @@
 
-
+import 'antd/dist/reset.css'; // для Ant Design v5
 import { Provider } from "react-redux";
 import { createRoot } from "react-dom/client";
 import "./index.css";

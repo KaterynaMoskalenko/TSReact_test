@@ -3,6 +3,8 @@
 export interface Task {
     id: string | number;
     title: string;
+    assignedTo?: string; // userId или имя
+
 }
 
 export interface Lead {
@@ -10,14 +12,21 @@ export interface Lead {
   value: string; // может быть email, имя, или другая информация
 }
 
+
 export interface Project {
-    id: string | number;
-    name: string;
-    shortDescription: string;
-    startDate: string;
-    endDate: string;
-    tasks?: Task[];
-    leads?: Lead[];
+  id: string | number;
+  name: string;
+  shortDescription: string;
+  detailedDescription?: string;
+  startDate: string;
+  endDate: string;
+  budget: number;
+  risks?: string;
+  communicationPlan?: string;
+  evaluationCriteria?: string;
+  tasks?: Task[];      // задачи проекта
+  leads?: Lead[];      // максимум 2 менеджера проекта
+
 }
 
 

@@ -1,117 +1,101 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addProject } from '../../store/ProjectSlice'
-import './ProjectForm.scss'
-import { useNavigate } from "react-router";
-import ProjectList from "./ProjectList";
-import axios from 'axios';
+import './ProjectForm.scss';
+import {
+  Input, Button, DatePicker, InputNumber, Typography,
+  Form as AntForm, Card, Divider
+} from 'antd';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addProject } from '../../store/ProjectSlice';
+import { useNavigate } from 'react-router';
+import moment from 'moment';
+
+const { TextArea } = Input;
 
 const ProjectSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  shortDescription: Yup.string().required("Description is required"),
-  detailedDescription: Yup.string().required("Description is required"),
-  startDate: Yup.date().required("Date is required"),
-  endDate: Yup.date()
-  .required("Date is required")
-  .min(Yup.ref("startDate"), "End date must be after start date"),
-  budget: Yup.number()
-  .typeError("Must be a number")
-  .positive("The budget must be positive")
-  .required("Budget is required"),
+   name: Yup.string().required("Name is required"),
+   shortDescription: Yup.string().required("Description is required"),
+   detailedDescription: Yup.string().required("Description is required"),
+   startDate: Yup.date().required("Date is required"),
+   endDate: Yup.date()
+   .required("Date is required")
+   .min(Yup.ref("startDate"), "End date must be after start date"),
+   budget: Yup.number()
+   .typeError("Must be a number")
+   .positive("The budget must be positive")
+   .required("Budget is required"),
 });
 
 export default function ProjectForm() {
   const dispatch = useDispatch();
-   const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   return (
-    <Formik
-      initialValues={{
-        name: "",
-        shortDescription: "",
-        detailedDescription: "",
-        startDate: "",
-        endDate: "",
-        budget: "",
-        risks: "",
-        communicationPlan: "",
-        evaluationCriteria: "",
-      }}
-      validationSchema={ProjectSchema}
-      onSubmit={async (values, { resetForm }) => {
-        const newProject = { ...values };     
-        
-        try {
-          await dispatch(addProject(newProject)).unwrap();
-          alert("Project has been saved!");
-          resetForm();
-          navigate("/projects-list");
-        } catch (error) {
-           alert("Mistake while saving project 😢");
+    <Card title="Create New Project" className="project-form-card">
+      <Formik
+        initialValues={{
+          name: "",
+          shortDescription: "",
+          detailedDescription: "",
+          startDate: "",
+          endDate: "",
+          budget: "",
+          risks: "",
+          communicationPlan: "",
+          evaluationCriteria: "",
+        }}
+        validationSchema={ProjectSchema}
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            await dispatch(addProject(values)).unwrap();
+            resetForm();
+            navigate("/projects-list");
+          } catch (error) {
             console.error(error);
-        }  
-    }}
+          }
+        }}
+      >
+        {({ values, errors, touched, handleChange, setFieldValue, isSubmitting }) => (
+          <Form as={AntForm} layout="vertical" className="project-edit-form" >
+            <AntForm.Item label="Project Name" validateStatus={touched.name && errors.name ? 'error' : ''} help={errors.name}>
+              <Input name="name" value={values.name} onChange={handleChange} />
+            </AntForm.Item>
 
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          {/* Общая информация */}
-        <section className="sectionForm-create">
-            <div>
-                <h2>General information</h2>
-                <Field name="name" placeholder="Project name" />
-                <ErrorMessage name="name" component="div" />
+            <AntForm.Item label="Short Description" help={errors.shortDescription}>
+              <TextArea name="shortDescription" value={values.shortDescription} onChange={handleChange} />
+            </AntForm.Item>
 
-                <Field name="shortDescription" placeholder="Brief description" />
-                <ErrorMessage name="shortDescription" component="div" />
+            <AntForm.Item label="Detailed Description" help={errors.detailedDescription}>
+              <TextArea name="detailedDescription" value={values.detailedDescription} onChange={handleChange} />
+            </AntForm.Item>
 
-                <Field name="detailedDescription" placeholder="Extended description" />
-                <ErrorMessage name="detailedDescription" component="div" />
+            <Divider orientation="left">Dates</Divider>
+            <AntForm.Item label="Start Date" help={errors.startDate}>
+              <DatePicker
+                value={values.startDate ? moment(values.startDate) : null}
+                onChange={(date, dateStr) => setFieldValue('startDate', dateStr)}
+              />
+            </AntForm.Item>
 
-                <Field type="date" name="startDate" />
-                <ErrorMessage name="startDate" component="div" />
+            <AntForm.Item label="End Date" help={errors.endDate}>
+              <DatePicker
+                value={values.endDate ? moment(values.endDate) : null}
+                onChange={(date, dateStr) => setFieldValue('endDate', dateStr)}
+              />
+            </AntForm.Item>
 
-                <Field type="date" name="endDate" />
-                <ErrorMessage name="endDate" component="div" />
-            </div>
-            <div className="wrapAdditionalForm">     
+            <Divider orientation="left">Additional</Divider>
+            <AntForm.Item label="Budget" help={errors.budget}>
+              <InputNumber name="budget" value={values.budget} onChange={(val) => setFieldValue('budget', val)} />
+            </AntForm.Item>
+
           
-                <p>
-                    {/* Бюджет */}
-                    <h2>Budget</h2>
-                    <Field type="number" name="budget" placeholder="Planned expenses" />
-                    <ErrorMessage name="budget" component="div" />
-                </p>
-                <p>
-                    {/* Риски */}
-                    <h2>Risks</h2>
-                    <Field name="risks" placeholder="Possible risks" />
-                    <ErrorMessage name="risks" component="div" />
-                </p>
-                <p>    
-                    {/* Коммуникации */}
-                    <h2>Communications</h2>
-                    <Field name="communicationPlan" placeholder="Каналы связи и график отчетности" />
-                    <ErrorMessage name="communicationPlan" component="div" />
-                </p>
-                <p>   
-                    {/* Оценка проекта */}
-                    <h2>Project grade</h2>
-                    <Field name="evaluationCriteria" placeholder="Communication channels and reporting schedule" />
-                    <ErrorMessage name="evaluationCriteria" component="div" />
-                </p>    
-          </div>  
-        </section>      
-
-          <button className="btnFormCreate" type="submit" disabled={isSubmitting}>
-            Create project
-          </button>
-        </Form>
-      )}
-    </Formik>
+            <Button type="primary" htmlType="submit" loading={isSubmitting}>
+              💾 Save Project
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </Card>
   );
 }
-
-

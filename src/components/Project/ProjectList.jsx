@@ -4,11 +4,10 @@ import {  fetchProjects } from '../../store/ProjectSlice';
 import { useEffect } from "react";
 import DeleteProjectButton from './DeleteProjectButton';
 import { useNavigate, useNavigation } from "react-router";
+import { List, Card, Typography, Button, Space, Empty } from 'antd';
 
  export default function ProjectList() {
   const projects = useSelector((state) => state.projects.projects);
-  //console.log(projects)
-
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -16,40 +15,37 @@ import { useNavigate, useNavigation } from "react-router";
     dispatch(fetchProjects());
   },[])
 
-
   return (
     <div>
-      <h2>current list of projects</h2>
+      <Typography.Title level={2}>Current List of Projects</Typography.Title>
       {projects.length === 0 ? (
-        <p>Any projects</p>
-      ) : (
-        <ul>
-                    {projects.map((project) => (
-                        <li key={project.id} >
-                          <div>
-                              <strong>{project.name}</strong> — {project.shortDescription}
-                              <p><em>Date of starting:</em> {project.startDate} | <em>Finaly date:</em> {project.endDate}</p>
-                          </div>
-                          <div className="wrapperBtn">
-                              <button //onClick={() => toggleTasks(project.id)}
-                              > Update
-                              {/* {expandedProjectId === project.id ? 'Hide tasks' : 'Show tasks'} */}
-                              </button>
-                              <button onClick={() => {
-                                console.log('project:', project);
-                                navigate(`/projects/${project.id}/edit`)}
-                              }>
-
-                              Edit
-                              </button>
-                            
-                              <DeleteProjectButton projectId={project.id} />
-
-                          </div>
-               
-                        </li>
-                    ))}
-                    </ul>      
+         <Empty description="No projects yet" />
+      ) : (      
+        <List
+          grid={{ gutter: 16, column: 1 }}
+          dataSource={projects}
+          renderItem={(project) => (
+            <List.Item>
+              <Card
+                title={project.name}
+                extra={
+                  <Space>
+                    <Button onClick={() => {/* добавить toggleTasks */}}>Update</Button>
+                    <Button onClick={() => navigate(`/projects/${project.id}/edit`)}>Edit</Button>
+                    <DeleteProjectButton projectId={project.id} />
+                  </Space>
+                }
+              >
+                <Typography.Text>{project.shortDescription}</Typography.Text>
+                <br />
+                <Typography.Text type="secondary">
+                  🗓 Start: {project.startDate} | End: {project.endDate}
+                </Typography.Text>
+              </Card>
+            </List.Item>
+          )}
+        />
+   
       )}
     </div>
   );

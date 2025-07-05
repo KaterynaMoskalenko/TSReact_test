@@ -1,26 +1,51 @@
-form section {
-    display: flex;
+
+.project-form-card {
+     min-width: 800px;
+    margin: 24px auto;
+    padding: 24px;
+    background-color: #f9f9f9; // Світлий фон для картки
+    border-radius: 8px; // Закруглені кути
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Легке тіньове оформлення
     
+    .ant-card-head-title {
+        font-size: 20px; // Збільшений розмір заголовка
+        font-weight: bold; // Жирний шрифт
+        color: #333; // Темніший колір тексту
+    }
+     // Внутрішні відступи між колонками
+    .ant-row {
+        margin-bottom: 16px;
+    }
+
+    .ant-form-item {
+        margin-bottom: 12px;
+     
+
+        label {
+        font-weight: 500;
+        }
+    }
+
+    .ant-input,
+    .ant-picker,
+    .ant-input-number {
+        height: 32px;
+        font-size: 24px;
+    }
+
+    .ant-btn {
+        margin: 0 auto;
+        font-size: 16px;
+        height: 38px;
+        width: 60%;
+    }
+
+    textarea.ant-input {
+        resize: none;
+        min-height: 60px;
+  }
 }
 
-.btnFormCreate {
-    height: 60px;
-    width: 185px;
-    margin: 0 auto;
-    background-color: #007bff;
-    color: aliceblue;
-}
-
-.sectionForm-create {
-    flex-direction: column;
-    max-height: 95vh;
-    flex-wrap: wrap;
-    width: 70vw;
-    text-align: center;
-
-}
-
-.wrapAdditionalForm {
-    display: flex;
-    flex-wrap: wrap;
+.project-edit-form {
+  width: 100%;
 }
