@@ -1,55 +1,16 @@
 {
   "projects": [
     {
-      "id": "4cd9",
-      "name": "катя2_21",
-      "shortDescription": "single task_2_215",
-      "detailedDescription": "dddddddbbbbbbbbbbmmmmmmmmmmmmmm",
-      "startDate": "2025-07-02",
-      "endDate": "2025-07-23",
-      "budget": 250258,
-      "risks": "333",
-      "communicationPlan": "3ув",
-      "evaluationCriteria": "иро",
-      "tasks": [
-        {
-          "id": "ziskahd6sge",
-          "title": "task_1 23",
-          "assignedTo": "qwww"
-        },
-        {
-          "id": "6d27lmb9yno",
-          "title": "task_2 AntityAdapter ",
-          "assignedTo": ""
-        },
-        {
-          "id": "s754nhd3nwg",
-          "title": "task_ Completed Project",
-          "assignedTo": ""
-        }
-      ],
-      "leads": [
-        {
-          "id": "ewleartibw",
-          "value": "Rfate"
-        },
-        {
-          "id": "neivl6rmip",
-          "value": "Емма"
-        }
-      ]
-    },
-    {
       "id": "19a9",
       "name": "serg om",
       "shortDescription": "zoom",
       "detailedDescription": "fgkgl;,fvml'bmm :m nfg",
       "startDate": "2025-07-03",
-      "endDate": "2025-07-31",
+      "endDate": "2025-08-02",
       "budget": 7500.31,
       "risks": "успеть ",
       "communicationPlan": "с президентом",
-      "evaluationCriteria": "",
+      "evaluationCriteria": "grrggr",
       "tasks": [
         {
           "id": "veq0cgtj01",
@@ -143,6 +104,93 @@
       "risks": "",
       "communicationPlan": "",
       "evaluationCriteria": ""
+    },
+    {
+      "id": "9d06",
+      "name": "Kateryna Moskalenko",
+      "shortDescription": "gg",
+      "detailedDescription": "ddffffhh",
+      "startDate": "2025-07-05",
+      "endDate": "2025-08-06",
+      "budget": 4,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": ""
+    },
+    {
+      "id": "bda3",
+      "name": "1 pr",
+      "shortDescription": "project",
+      "detailedDescription": "big project",
+      "startDate": "2025-07-05",
+      "endDate": "2025-07-31",
+      "budget": 1111,
+      "risks": "werk",
+      "communicationPlan": "with redactor",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "id": "nl00uklyd1n",
+          "title": "task_1  Main",
+          "assignedTo": "aa"
+        }
+      ],
+      "leads": [
+        {
+          "id": "0by1wrapr62",
+          "value": "sergio belini"
+        }
+      ]
+    },
+    {
+      "id": "07e5",
+      "name": "2 ghjtrn",
+      "shortDescription": "project wichtig",
+      "detailedDescription": "fdd'knkgnm\nkmgs\n;lmb\ng;m \n;gm n\na;lm \n;nfsml\ns';l",
+      "startDate": "2025-07-05",
+      "endDate": "2025-07-28",
+      "budget": 2,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "id": "wyfgcc7ddun",
+          "title": "task  3",
+          "assignedTo": "k"
+        }
+      ],
+      "leads": [
+        {
+          "id": "qkiqbq56u6n",
+          "value": "er"
+        }
+      ]
+    },
+    {
+      "id": "0bac",
+      "name": "new proj_31",
+      "shortDescription": "create sth",
+      "detailedDescription": "/lgsnm\nkn\n;n\n;fgmn\n;m\n;fgm n\n; ;,\nn ;,",
+      "startDate": "2025-07-06",
+      "endDate": "2025-08-09",
+      "budget": 23,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "id": "2njd28gtw9r",
+          "title": "task_1  Section#1",
+          "assignedTo": "Ivan"
+        }
+      ],
+      "leads": [
+        {
+          "id": "pkrs947vfk9",
+          "value": "Petro"
+        }
+      ]
     }
   ]
 }
