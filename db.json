@@ -15,12 +15,18 @@
         {
           "id": "veq0cgtj01",
           "title": "разрешить проблему",
-          "assignedTo": "sergio"
+          "assignedTo": "sergio",
+          "status": "завершена",
+          "priority": "высокий",
+          "deadline": "2025-07-22T21:00:00.000Z"
         },
         {
           "id": "ivew5dpm9h",
           "title": "ускорить процесс",
-          "assignedTo": ""
+          "assignedTo": "",
+          "deadline": "2025-07-30T21:00:00.000Z",
+          "status": "завершена",
+          "priority": "средний"
         }
       ],
       "leads": [
@@ -45,7 +51,10 @@
         {
           "id": "1bv6lz8s2oh",
           "title": "task_1 23ппп",
-          "assignedTo": ""
+          "assignedTo": "",
+          "deadline": "2025-07-30T21:00:00.000Z",
+          "priority": "высокий",
+          "status": "в процессе"
         }
       ],
       "leads": [
@@ -132,7 +141,10 @@
         {
           "id": "nl00uklyd1n",
           "title": "task_1  Main",
-          "assignedTo": "aa"
+          "assignedTo": "aa",
+          "deadline": "2025-07-27T21:00:00.000Z",
+          "status": "завершена",
+          "priority": "средний"
         }
       ],
       "leads": [
@@ -157,7 +169,10 @@
         {
           "id": "wyfgcc7ddun",
           "title": "task  3",
-          "assignedTo": "k"
+          "assignedTo": "k",
+          "status": "в процессе",
+          "deadline": "2025-07-27T21:00:00.000Z",
+          "priority": "высокий"
         }
       ],
       "leads": [
@@ -182,13 +197,42 @@
         {
           "id": "2njd28gtw9r",
           "title": "task_1  Section#1",
-          "assignedTo": "Ivan"
+          "assignedTo": "Ivan",
+          "priority": "средний",
+          "deadline": "2025-07-21T21:00:00.000Z"
         }
       ],
       "leads": [
         {
           "id": "pkrs947vfk9",
           "value": "Petro"
+        }
+      ]
+    },
+    {
+      "id": "a8f3",
+      "name": "pr#33",
+      "shortDescription": "33",
+      "detailedDescription": "fdfdgfdgf",
+      "startDate": "2025-07-07",
+      "endDate": "2025-08-04",
+      "budget": 34,
+      "risks": "",
+      "communicationPlan": "",
+      "evaluationCriteria": "",
+      "tasks": [
+        {
+          "id": "rwnk6efb5k",
+          "title": "task_1  Main",
+          "assignedTo": "d",
+          "deadline": "2025-07-22T21:00:00.000Z",
+          "priority": "средний"
+        }
+      ],
+      "leads": [
+        {
+          "id": "zqsonkz986",
+          "value": "f"
         }
       ]
     }

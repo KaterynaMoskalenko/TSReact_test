@@ -6,22 +6,22 @@ import moment from 'moment';
 import type { ColumnsType } from 'antd/es/table';
 import type { RootState } from '@/main';
 import type { FullTask } from '@/models/Project';
-//import { updateTask } from '@/store/actions/tasks'; // ✅ подключи свою функцию обновления задачи
+import { updateTaskAsyncThunk } from '@/store/taskSlice';
 
-export default function TaskTable() {
- // const dispatch = useDispatch();
+type Props = {
+  tasks: FullTask[]; // 👈 передаваемый массив задач
+};
+
+export default function TaskTable({ tasks }: Props) {
+
  const dispatch = useDispatch<AppDispatch>();
 
-  const tasks = useSelector((state: RootState) =>
-    state.projects.projects.flatMap((p) =>
-      (p.tasks ?? []).map((task) => ({
-        ...task,
-        key: task.id,
-        projectTitle: p.name,
-      }))
-    )
-  ) as (FullTask & { projectTitle: string })[];
- const columns: ColumnsType<FullTask & { projectTitle: string }> = [
+ // Получаем задачи из нормализованного slice
+  // const tasks = useSelector((state: RootState) =>
+  //   Object.values(state.tasks.entities).filter(Boolean)
+  // ) as FullTask[];
+
+  const columns = [
     {
       title: '📝 Title',
       dataIndex: 'title',
@@ -38,9 +38,8 @@ export default function TaskTable() {
       title: '📅 Deadline',
       dataIndex: 'deadline',
       key: 'deadline',
-      render: (deadline: string | undefined, record) => {
+      render: (deadline: string | undefined, record: FullTask) => {
         const isOverdue = deadline && moment(deadline).isBefore(moment(), 'day');
-
         return (
           <DatePicker
             style={{
@@ -52,7 +51,13 @@ export default function TaskTable() {
             format="YYYY-MM-DD"
             onChange={(date) => {
               const newDate = date?.toISOString() ?? null;
-              dispatch(updateTask(record.id, { deadline: newDate }));
+              dispatch(
+                updateTaskAsyncThunk({
+                  id: record.id as string,
+                  projectId: record.projectId as string,
+                  patch: { deadline: newDate },
+                })
+              );
             }}
           />
         );
@@ -62,12 +67,18 @@ export default function TaskTable() {
       title: '⚡ Priority',
       dataIndex: 'priority',
       key: 'priority',
-      render: (priority: FullTask['priority'], record) => (
+      render: (priority: FullTask['priority'], record: FullTask) => (
         <Select
           defaultValue={priority}
           style={{ width: 120 }}
           onChange={(newPriority) => {
-            dispatch(updateTask(record.id, { priority: newPriority as FullTask['priority'] }));
+            dispatch(
+              updateTaskAsyncThunk({
+                id: record.id as string,
+                projectId: record.projectId as string,
+                patch: { priority: newPriority },
+              })
+            );
           }}
           options={[
             { value: 'низкий', label: 'Низкий' },
@@ -81,12 +92,18 @@ export default function TaskTable() {
       title: '📊 Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status: FullTask['status'], record) => (
+      render: (status: FullTask['status'], record: FullTask) => (
         <Select
           defaultValue={status}
           style={{ width: 120 }}
           onChange={(newStatus) => {
-            dispatch(updateTask(record.id, { status: newStatus as FullTask['status'] }));
+            dispatch(
+              updateTaskAsyncThunk({
+                id: record.id as string,
+                projectId: record.projectId as string,
+                patch: { status: newStatus },
+              })
+            );
           }}
           options={[
             { value: 'новая', label: 'Новая' },
@@ -108,11 +125,10 @@ export default function TaskTable() {
     <Table
       columns={columns}
       dataSource={tasks}
+      rowKey="id"
       pagination={{ pageSize: 5 }}
       bordered
       title={() => '📌 Project Tasks Overview'}
     />
   );
 }
-
- 

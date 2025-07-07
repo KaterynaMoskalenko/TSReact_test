@@ -7,17 +7,17 @@ import App from "./App.jsx";
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./store/authSlice";
 import projectsReducer from './store/ProjectSlice.js';
-
+import taskReducer from './store/taskSlice'; 
 
 
 export const store = configureStore({
   reducer: {
     auth: authReducer, // Додаємо authSlice
-    projects: projectsReducer,   
+    projects: projectsReducer, 
+    tasks: taskReducer,  
   }, 
 
 });
-
 
 
 const root = document.getElementById('root') as HTMLElement;

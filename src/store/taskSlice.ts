@@ -1,4 +1,4 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import type { FullTask } from "@/models/Project";
 import axios from "axios";
 
@@ -11,56 +11,84 @@ const initialState = tasksAdapter.getInitialState({
   error: null as string | null
 });
 
-// work with axios. auto parsit JSON and create actions
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, thunkAPI) => {
-  try {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/tasks`);
-    return response.data;
-  } catch (error) {
-    // Можна передати помилку далі, щоб її обробити у reducer
-    if (axios.isAxiosError(error)) {
-      return thunkAPI.rejectWithValue(error.response?.data || 'Failed to fetch tasks');
-    }
-    return thunkAPI.rejectWithValue('Failed to fetch tasks');
-  }
-});
-
-export const updateTask = createAsyncThunk(
+export const updateTaskAsyncThunk = createAsyncThunk(
   'tasks/updateTask',
-  async (task: FullTask, thunkAPI) => {
+  async (
+    {
+      id,
+      projectId,
+      patch,
+    }: { id: string; projectId: string; patch: Partial<FullTask> },
+    thunkAPI
+  ) => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/tasks/${task.id}`, task);
-      return response.data;
+      const projectUrl = `${import.meta.env.VITE_API_URL}/projects/${projectId}`;
+      // Получаем текущий проект
+      const response = await axios.get(projectUrl);
+      const project = response.data;
+
+      // Обновляем нужную задачу
+      const updatedTasks = (project.tasks ?? []).map((task: FullTask) =>
+        task.id === id ? { ...task, ...patch } : task
+      );
+
+      const updatedProject = { ...project, tasks: updatedTasks };
+
+      // Отправляем весь обновлённый проект
+      const putResponse = await axios.put(projectUrl, updatedProject);
+      return putResponse.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue('Не удалось обновить задачу');
+      if (axios.isAxiosError(error)) {
+        const msg =
+          error.response?.data?.message ||
+          error.response?.statusText ||
+          'Ошибка при обновлении задачи через проект';
+        return thunkAPI.rejectWithValue(msg);
+      }
+      return thunkAPI.rejectWithValue('Не удалось обновить задачу через проект');
     }
   }
 );
+
+
 
 const taskSlice = createSlice({
   name: "tasks",
     initialState,
     reducers: {
+      // Tasks from Array of projects
+      setTaskFromPProjects: (state, action: PayloadAction<{ projects: { name: string; id: string; tasks?: FullTask[] }[] }>) => {
+        const allTasks = action.payload.projects.flatMap(project =>
+          (project.tasks ?? []).map(task => ({
+            ...task,
+            key: task.id, // Добавляем ключ для React
+            projectId: project.id, // ✅ Добавляем projectId
+
+            projectTitle: project.name || 'Unknown Project'
+          }))
+        );
+        tasksAdapter.setAll(state, allTasks);
+      },
         addTask: tasksAdapter.addOne,
         removeTask: tasksAdapter.removeOne,
         updateTask: tasksAdapter.updateOne,
-        setTasks: tasksAdapter.setAll
+       
     },
     extraReducers: (builder) => {
         builder
-            .addCase("tasks/fetchTasks/pending", (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase("tasks/fetchTasks/fulfilled", (state, action: any) => {
-                tasksAdapter.setAll(state, action.payload);
-                state.loading = false;
-            })
-            .addCase("tasks/fetchTasks/rejected", (state, action: any) => {
-                state.loading = false;
-                state.error = action.error?.message || "Failed to load tasks";
-            })
-            .addCase(updateTask.fulfilled, (state, action) => {
+            // .addCase("tasks/fetchTasks/pending", (state) => {
+            //     state.loading = true;
+            //     state.error = null;
+            // })
+            // .addCase("tasks/fetchTasks/fulfilled", (state, action: any) => {
+            //     tasksAdapter.setAll(state, action.payload);
+            //     state.loading = false;
+            // })
+            // .addCase("tasks/fetchTasks/rejected", (state, action: any) => {
+            //     state.loading = false;
+            //     state.error = action.error?.message || "Failed to load tasks";
+            // })
+            .addCase(updateTaskAsyncThunk.fulfilled, (state, action) => {
                 tasksAdapter.upsertOne(state, action.payload);
 });
 
@@ -68,3 +96,5 @@ const taskSlice = createSlice({
 });
 
 export default taskSlice.reducer;
+export const { setTaskFromPProjects } = taskSlice.actions;
+

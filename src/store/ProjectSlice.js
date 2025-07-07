@@ -45,8 +45,7 @@ export const fetchProjects = createAsyncThunk(
     } catch (error) {
       //send error in reducer
       return thunkAPI.rejectWithValue(error.message)
-    }  
-   
+    }     
   }
 );
 

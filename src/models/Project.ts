@@ -38,6 +38,9 @@ export interface Project {
   deadline?: string;
   assignedTo?: string;
   description?: string;
-  priority?: 'низкий' | 'средний' | 'высокий'
+  priority?: 'низкий' | 'средний' | 'высокий';
+    projectId?: string | number; // ← добавляем сюда!
+  projectTitle?: string;
+
 }
 
